@@ -4,28 +4,28 @@ class Snake:
 	def __init__(self, size = 500):
 		self.position = [size/5,size/10]
 		self.body = [[size/5,size/10],[size/5-10,size/10],[size/5-20,size/10]] 
-		self.direction = "RIGHT"
+		self.direction = "R"
 		self.changeDirectionTo = self.direction
 
 
 	def changeDirTo(self,dir):
-		if dir=="RIGHT" and not self.direction=="LEFT":
-			self.direction = "RIGHT"
-		if dir=="LEFT" and not self.direction=="RIGHT":
-			self.direction = "LEFT"
-		if dir=="UP" and not self.direction=="DOWN":
-			self.direction = "UP"
-		if dir=="DOWN" and not self.direction=="UP":
-			self.direction = "DOWN"
+		if dir=="R" and not self.direction=="L":
+			self.direction = "R"
+		if dir=="L" and not self.direction=="R":
+			self.direction = "L"
+		if dir=="U" and not self.direction=="D":
+			self.direction = "U"
+		if dir=="D" and not self.direction=="U":
+			self.direction = "D"
 
 	def move(self,foodPos):
-		if self.direction == "RIGHT":
+		if self.direction == "R":
 			self.position[0] += 10
-		if self.direction == "LEFT":
+		if self.direction == "L":
 			self.position[0] -= 10
-		if self.direction == "UP":
+		if self.direction == "U":
 			self.position[1] -= 10
-		if self.direction == "DOWN":
+		if self.direction == "D":
 			self.position[1] += 10
 		self.body.insert(0,list(self.position))
 		if self.position == foodPos:

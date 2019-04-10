@@ -1,11 +1,10 @@
-import pygame
-import sys
 import random
-import time
+import pygame
+import numpy
+import sys
 from snake import Snake
 from foodspawner import FoodSpawner
 from fileio import FileIO
-import numpy
 
 
 baseFramerate = 20
@@ -14,11 +13,11 @@ fIO =  FileIO()
 
 
 
-def gameOver(quit=False, score = 0,framerate=0):
+def gameOver(quitGame=False, score = 0,framerate=0):
 	pygame.quit()
 	fIO.printScore(score,framerate)
-	if quit == True:
-		sys.exit()
+	if quitGame == True:
+		sys.exit(0)
 	init(baseFramerate)
 
 
@@ -42,16 +41,16 @@ def init(framerate):
 				gameOver(True)
 			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_RIGHT:
-					snake.changeDirTo("RIGHT")
+					snake.changeDirTo("R")
 				
 				if event.key == pygame.K_LEFT:
-					snake.changeDirTo("LEFT")
+					snake.changeDirTo("L")
 				
 				if event.key == pygame.K_DOWN:
-					snake.changeDirTo("DOWN")
+					snake.changeDirTo("D")
 				
 				if event.key == pygame.K_UP:
-					snake.changeDirTo("UP")
+					snake.changeDirTo("U")
 
 
 		for i in range(random.randrange(1,3)):
@@ -60,7 +59,7 @@ def init(framerate):
 		if(snake.move(foodPos)==1):
 			score+=1
 			if(score%5==0 and score>0):
-				framerate+=3.5
+				framerate+=1.5
 			food.setFoodOnScreen(False)
 
 		window.fill(pygame.Color(0,0,int(abs(numpy.sin(score)*50))))
@@ -73,7 +72,7 @@ def init(framerate):
 		pygame.display.flip()
 		fps.tick(framerate)
 
-	
+		
 
 			
 init(baseFramerate)
