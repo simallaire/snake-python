@@ -1,14 +1,20 @@
 
-size = 500
+size = 600
 class Snake:
-	def __init__(self, size = 500):
+	def __init__(self, size = 600):
 		self.position = [size/5,size/10]
 		self.body = [[size/5,size/10],[size/5-10,size/10],[size/5-20,size/10]] 
 		self.direction = "R"
 		self.changeDirectionTo = self.direction
 
-
-	def changeDirTo(self,dir):
+	def getX(self):
+		return self.position[0]
+	def getY(self):
+		return self.position[1]
+	def getDir(self):
+		return self.direction
+		
+	def changeDirTo(self, dir):
 		if dir=="R" and not self.direction=="L":
 			self.direction = "R"
 		if dir=="L" and not self.direction=="R":
