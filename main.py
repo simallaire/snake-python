@@ -6,8 +6,8 @@ from snake import Snake
 from foodspawner import FoodSpawner
 from fileio import FileIO
 
-baseFramerate = 1000
-size = 600
+baseFramerate = 500
+size = 500
 fIO = FileIO()
 
 
@@ -37,10 +37,14 @@ def userInput(snake):
 				snake.changeDirTo("U")
 
 def compInput(snake, foodpos):
+	# Quit key event
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			gameover(True)
+
 	moved = False
+
+	# Avoid walls
 	if snake.getDir() != "U" and snake.getDir() != "D":
 		if snake.getX()+10 >= size and moved==False:
 			if snake.getY() <= size/2:
@@ -72,6 +76,51 @@ def compInput(snake, foodpos):
 				moved = True
 				snake.changeDirTo("L")
 
+	# Avoid bodyparts
+
+	if snake.getDir() == "L" and moved==False:
+		for bodyParts in snake.getBody()[1:]:
+			if snake.getX()-10 == bodyParts[0] and snake.getY() == bodyParts[1] and moved==False:
+			
+				if snake.checkPos(snake.getX()-10,snake.getY()-10):
+					if snake.checkPos(snake.getX(),snake.getY()+10):
+						snake.changeDirTo("U")
+					else:
+						snake.changeDirTo("D")
+				else:
+					snake.changeDirTo("U")
+				moved=True
+
+	if snake.getDir() == "R" and moved==False:
+		for bodyParts in snake.getBody()[1:]:
+			if snake.getX()+10 == bodyParts[0] and snake.getY() == bodyParts[1]  and moved==False:
+				if snake.checkPos(snake.getX()+10,snake.getY()-10):
+					snake.changeDirTo("D")
+				else:
+					snake.changeDirTo("U")
+				moved=True
+
+	if snake.getDir() == "U" and moved==False:
+		for bodyParts in snake.getBody()[1:]:
+			if snake.getY()-10 == bodyParts[1] and snake.getX() == bodyParts[0]  and moved==False:
+				if snake.checkPos(snake.getX()+10, snake.getY()-10):
+					if snake.checkPos(snake.getX()-10,snake.getY()):
+						snake.changeDirTo("R")
+					else:
+						snake.changeDirTo("L")
+				else:
+					snake.changeDirTo("R")
+				moved=True   
+	if snake.getDir() == "D" and moved==False:
+		for bodyParts in snake.getBody()[1:]:
+			if snake.getY()+10 == bodyParts[1] and snake.getX() == bodyParts[0]  and moved==False:
+				if snake.checkPos(snake.getX()+10, snake.getY()+10):
+					snake.changeDirTo("L")
+				else:
+					snake.changeDirTo("R")
+				moved=True  						
+    					
+	# Look for food
 	if  moved==False:
 		if snake.getX() < foodpos[0] :
 			snake.changeDirTo("R")

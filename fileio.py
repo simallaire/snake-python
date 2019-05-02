@@ -6,12 +6,12 @@ class FileIO:
 	def printScore(self, score = 0,framerate = 0):
 		self.score = score
 		self.framerate = framerate
-		f = open('highscoreCOMP','a+')
+		f = open('BPAvoid','a+')
 		if self.score > 0:
 			f.write(str(self.score)+"\t"+str(self.framerate)+"\n")
 
 	def getHighScore(self):
-		f = open('highscoreCOMP','r+')
+		f = open('BPAvoid','r+')
 		highscore = 0 
 		for l in f:
 			strs = l.split("\t")

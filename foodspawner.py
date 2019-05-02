@@ -1,8 +1,8 @@
 import random
 class FoodSpawner():
-	size = 600
+	size = 500
     	
-	def __init__(self, sizen=600):
+	def __init__(self, sizen=500):
 		global size
 		size=sizen
 		self.position = [random.randrange(1,size/10)*10,random.randrange(1,size/10)*10]

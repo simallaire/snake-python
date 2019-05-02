@@ -1,7 +1,7 @@
 
-size = 600
+size = 500
 class Snake:
-	def __init__(self, size = 600):
+	def __init__(self, size = 500):
 		self.position = [size/5,size/10]
 		self.body = [[size/5,size/10],[size/5-10,size/10],[size/5-20,size/10]] 
 		self.direction = "R"
@@ -13,6 +13,8 @@ class Snake:
 		return self.position[1]
 	def getDir(self):
 		return self.direction
+	def getBody(self):
+		return self.body
 		
 	def changeDirTo(self, dir):
 		if dir=="R" and not self.direction=="L":
@@ -50,7 +52,11 @@ class Snake:
 				return 1
 
 		return 0 
-
+	def checkPos(self,x,y):
+		for bodyPart in self.body[1:]:
+			if bodyPart == [x,y]:
+				return 1
+		return 0
 	def getHeadPos(self):
 		return self.position
 	def getBody(self):
